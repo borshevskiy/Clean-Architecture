@@ -1,11 +1,14 @@
 package com.borshevskiy.cleanarchitecture.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.borshevskiy.cleanarchitecture.domain.ShopItem
 import com.borshevskiy.cleanarchitecture.domain.ShopListRepository
 import java.lang.RuntimeException
 
 object ShopListRepositoryImpl: ShopListRepository {
 
+    private val shopListLD = MutableLiveData<List<ShopItem>>()
     private val shopList = mutableListOf<ShopItem>()
     private var autoIncrement = 0
 
@@ -14,14 +17,16 @@ object ShopListRepositoryImpl: ShopListRepository {
             shopItem.id = autoIncrement++
         }
         shopList.add(shopItem)
+        updateLiveData()
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateLiveData()
     }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLD
     }
 
     override fun updateShopItem(shopItem: ShopItem) {
@@ -32,5 +37,9 @@ object ShopListRepositoryImpl: ShopListRepository {
     override fun getShopItem(shopItemId: Int): ShopItem {
         return shopList.find { it.id == shopItemId } ?:
         throw RuntimeException("Element with $shopItemId not found")
+    }
+
+    private fun updateLiveData() {
+        shopListLD.value = shopList.toList()
     }
 }
