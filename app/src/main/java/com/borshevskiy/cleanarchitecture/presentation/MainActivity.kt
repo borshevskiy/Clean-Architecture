@@ -1,7 +1,8 @@
-package com.borshevskiy.cleanarchitecture
+package com.borshevskiy.cleanarchitecture.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.borshevskiy.cleanarchitecture.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
