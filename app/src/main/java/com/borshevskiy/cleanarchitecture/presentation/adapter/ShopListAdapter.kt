@@ -1,5 +1,6 @@
 package com.borshevskiy.cleanarchitecture.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,8 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
             field = value
             notifyDataSetChanged()
         }
+
+    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
 
     sealed class ShopRecyclerViewHolder(binding: ViewBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -48,12 +51,26 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
                 with(holder.binding) {
                     tvName.text = shopItem.name
                     tvCount.text = shopItem.count.toString()
+                    itemShopRowLayout.setOnLongClickListener {
+                        onShopItemLongClickListener?.invoke(shopItem)
+                        true
+                    }
+                    itemShopRowLayout.setOnClickListener {
+                        Log.d("CLICK", shopItem.toString())
+                    }
                 }
             }
             is ShopRecyclerViewHolder.DisabledViewHolder -> {
                 with(holder.binding) {
                     tvName.text = shopItem.name
                     tvCount.text = shopItem.count.toString()
+                    itemShopRowLayout.setOnLongClickListener {
+                        onShopItemLongClickListener?.invoke(shopItem)
+                        true
+                    }
+                    itemShopRowLayout.setOnClickListener {
+                        Log.d("CLICK", shopItem.toString())
+                    }
                 }
             }
         }
