@@ -3,6 +3,7 @@ package com.borshevskiy.cleanarchitecture.presentation.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.borshevskiy.cleanarchitecture.databinding.ItemShopDisabledBinding
@@ -15,8 +16,9 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
 
     var shopList = listOf<ShopItem>()
         set(value) {
+            val diffUtil = DiffUtil.calculateDiff(ShopListDiffCallback(shopList,value))
+            diffUtil.dispatchUpdatesTo(this)
             field = value
-            notifyDataSetChanged()
         }
 
     var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
