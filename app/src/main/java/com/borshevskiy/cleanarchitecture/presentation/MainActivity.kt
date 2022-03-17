@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopList.observe(this) {
-            mAdapter.shopList = it
+            mAdapter.submitList(it)
         }
     }
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deletedItem = mAdapter.shopList[viewHolder.adapterPosition]
+                val deletedItem = mAdapter.currentList[viewHolder.adapterPosition]
                 viewModel.deleteShopItem(deletedItem)
                 mAdapter.notifyItemRemoved(viewHolder.adapterPosition)
             }

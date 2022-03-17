@@ -3,7 +3,7 @@ package com.borshevskiy.cleanarchitecture.presentation.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.borshevskiy.cleanarchitecture.databinding.ItemShopDisabledBinding
@@ -12,14 +12,7 @@ import com.borshevskiy.cleanarchitecture.domain.ShopItem
 import com.borshevskiy.cleanarchitecture.util.Constants.Companion.VIEW_TYPE_DISABLED
 import com.borshevskiy.cleanarchitecture.util.Constants.Companion.VIEW_TYPE_ENABLED
 
-class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHolder>() {
-
-    var shopList = listOf<ShopItem>()
-        set(value) {
-            val diffUtil = DiffUtil.calculateDiff(ShopListDiffCallback(shopList,value))
-            diffUtil.dispatchUpdatesTo(this)
-            field = value
-        }
+class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopRecyclerViewHolder>(ShopItemDiffCallback()) {
 
     var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
 
@@ -39,7 +32,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (shopList[position].enabled) {
+        return if (getItem(position).enabled) {
              VIEW_TYPE_ENABLED
         } else {
             VIEW_TYPE_DISABLED
@@ -47,7 +40,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
     }
 
     override fun onBindViewHolder(holder: ShopRecyclerViewHolder, position: Int) {
-        val shopItem = shopList[position]
+        val shopItem = getItem(position)
         when(holder) {
             is ShopRecyclerViewHolder.EnabledViewHolder -> {
                 with(holder.binding) {
@@ -76,9 +69,5 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopRecyclerViewHol
                 }
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return shopList.size
     }
 }
