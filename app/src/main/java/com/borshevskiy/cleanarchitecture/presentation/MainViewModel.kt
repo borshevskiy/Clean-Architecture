@@ -1,6 +1,5 @@
 package com.borshevskiy.cleanarchitecture.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.borshevskiy.cleanarchitecture.data.ShopListRepositoryImpl
 import com.borshevskiy.cleanarchitecture.domain.DeleteShopItemUseCase
