@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.shopList.observe(this) {
             mAdapter.submitList(it)
         }
+        binding.buttonAddShopItem.setOnClickListener {
+            startActivity(ShopItemActivity.newIntentAddItem(this))
+        }
     }
 
     private fun setupRecyclerView() {
@@ -37,8 +40,11 @@ class MainActivity : AppCompatActivity() {
             recycledViewPool.setMaxRecycledViews(VIEW_TYPE_DISABLED, MAX_POOL_SIZE)
         }
         swipeToDelete(recyclerView)
-        mAdapter.onShopItemLongClickListener =  {
+        mAdapter.onShopItemLongClickListener = {
             viewModel.changeEnableState(it)
+        }
+        mAdapter.onShopItemClickListener = {
+            startActivity(ShopItemActivity.newIntentUpdateItem(this, it.id))
         }
     }
 
