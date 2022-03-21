@@ -11,5 +11,6 @@ class Constants {
         const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
         const val MODE_UPDATE = "mode_update"
         const val MODE_ADD = "mode_add"
+        const val MODE_UNKNOWN = ""
     }
 }

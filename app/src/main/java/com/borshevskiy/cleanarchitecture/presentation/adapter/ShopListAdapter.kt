@@ -1,17 +1,13 @@
 package com.borshevskiy.cleanarchitecture.presentation.adapter
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.borshevskiy.cleanarchitecture.databinding.ItemShopDisabledBinding
 import com.borshevskiy.cleanarchitecture.databinding.ItemShopEnabledBinding
 import com.borshevskiy.cleanarchitecture.domain.ShopItem
-import com.borshevskiy.cleanarchitecture.presentation.ShopItemActivity
 import com.borshevskiy.cleanarchitecture.util.Constants.Companion.VIEW_TYPE_DISABLED
 import com.borshevskiy.cleanarchitecture.util.Constants.Companion.VIEW_TYPE_ENABLED
 
