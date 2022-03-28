@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             mAdapter.submitList(it)
         }
         binding.buttonAddShopItem.setOnClickListener {
-            startActivity(ShopItemActivity.newIntentAddItem(this))
         }
     }
 
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeEnableState(it)
         }
         mAdapter.onShopItemClickListener = {
-            startActivity(ShopItemActivity.newIntentUpdateItem(this, it.id))
         }
     }
 
